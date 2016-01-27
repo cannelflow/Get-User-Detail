@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display IP Address</title>
+	<meta charset="utf-8" />
+</head>
+<body>
+   <div id="demo" style="text-align:center"></div>
+<script>
+    // initialize XMLHttpRequest object
+    var abc = new XMLHttpRequest();
+    //The xhr variable will now be the gateway to all the various properties 
+    //and methods the XMLHttpRequest object provides for allowing you to make web 
+    //requests. One such method is open. 
+    abc.open("Get", "http://ipinfo.io/json", true);
+    //So far, what we've done is initialized the XMLHttpRequest object and 
+    //constructed our request. We haven't sent the request out yet, but that 
+    //is handled by the next line:
+    abc.send();
+    //we need is a way to send our request and then be notified of when the request comes 
+    //back so that our code can finish what it started.
+    abc.addEventListener("readystatechange", processRequest, false);
+    //This line looks like any other event listening code you've written a 
+   // bunch of times. We listen for the readystatechange event on our xhr object and call 
+    // the processRequest event handler when the event gets overheard. Here is where some fun stuff happens!
+    //We have our event listener all ready, and all we need is the processRequest 
+    //event handler where we can add some code to read the result that gets returned. 
+    //Let's go ahead and first add our event handler:
+    //Since our goal is to read the returned value after our request has been 
+    //completed, the readyState value of 4 is our friend. We need to ensure we only move forward 
+    //when this value is set, so here is what the modified processRequest function would look like to handle that:
+    function processRequest(e) {
+        if (abc.readyState == 4 && abc.status == 200) {
+            var response = JSON.parse(abc.responseText);
+            document.getElementById("demo").innerHTML = response.ip+"<br>"+response.hostname+"<br>"+response.city+"<br>"+response.region;
+           // alert(response.ip);
+        }
+    }
+    //In plain English, what this check does is simple. This if statement 
+    //checks that the request has completed (readyState == 4) AND is successful (status == 200). 
+    //Only if both of those conditions are met can we declare that our request did what we wanted it to do.
+</script> 
+    <a href="http://www.kirupa.com/html5/making_http_requests_js.htm" style="text-align:center">Refrence</a>
+</body>
+</html>
