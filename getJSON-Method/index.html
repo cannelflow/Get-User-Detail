@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <style>
+    $(document).ready(function () {
+    $("button").click(function () {
+        $.getJSON("http://ipinfo.io/json", function (result) {
+            document.getElementById("demo").innerHTML = result.ip;
+        });
+    });
+});
+    </style>
+</head>
+<body>
+    <section>
+        <div class="container-fluid text-center">
+            <h1><button class="btn btn-danger">Click Me To Get IP Address !</button></h1>
+            <h1 class="text-primary" id="demo"></h1>
+        </div>
+    </section>
+</body>
+</html>
